@@ -4,6 +4,7 @@
   angular.module('ControlGymApp', [
     'ngMaterial',
     'ui.router',
+    'ngResource',
 
     // Application Modules
     'ControlGymApp.controllers',
@@ -31,8 +32,8 @@
         .state('app.miembros', {
             url:'/miembros',
             templateUrl: 'tmp/miembros.html',
-            // controller: 'MiembrosController as miembroCtrl'
-        })
+            controller: 'MiembrosController as miembrosCtrl'
+        });
     }
 
 }());

@@ -3,6 +3,7 @@
 
   angular.module('ControlGymApp', [
     'ngMaterial',
+    'ngMessages',
     'ui.router',
     'ngResource',
 
@@ -20,19 +21,29 @@
       $urlRouterProvider.otherwise('/');
       $stateProvider
         .state('login', {
-            url:'/login',
-            templateUrl: 'tmp/login.html',
-            // controller: 'loginController as loginCtrl'
+          url:'/login',
+          templateUrl: 'js/login/tmp/login.html',
+          // controller: 'loginController as loginCtrl'
         })
         .state('app', {
-            url:'/app',
-            templateUrl: 'tmp/app.html',
-            controller: 'ControlGymController as controlGymCtrl'
+          url:'/app',
+          templateUrl: 'js/app/tmp/app.html',
+          controller: 'ControlGymController as controlGymCtrl'
         })
         .state('app.miembros', {
-            url:'/miembros',
-            templateUrl: 'tmp/miembros.html',
-            controller: 'MiembrosController as miembrosCtrl'
+          url:'/miembros',
+          template: '<ui-view/>'
+        })
+        .state('app.miembros.lista', {
+          url:'/lista',
+          templateUrl: 'js/miembros/tmp/miembros.html',
+          controller: 'MiembrosController as miembrosCtrl'
+        })
+        .state('app.miembros.detalle', {
+          url: '/{id:[0-9]*}',
+          templateUrl: 'js/miembros/tmp/miembro-detalle.html',
+          controller: 'MiembroDetalleController as miembroDetalleCtrl',
+          params: { miembro: null },
         });
     }
 

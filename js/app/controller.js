@@ -10,7 +10,7 @@
       controlGymCtrl.toggleSideNav = function toggleSideNav(){
         $mdSidenav('sideNav').toggle();
       };
-      controlGymCtrl.goTo = function goTo(estado){
+      controlGymCtrl.abrirSeccion = function (estado){
         $state.go(estado);
         $mdSidenav('sideNav').toggle();
       };

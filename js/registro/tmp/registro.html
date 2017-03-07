@@ -1,0 +1,50 @@
+<md-toolbar layout="row">
+  <div flex class="text-center"><h1>Control Gym Web - Administraci&oacute;n</h1></div>
+</md-toolbar>
+<div class="container" layout="row" flex>
+  <div flex="20"></div>
+  <div flex>
+    <form name="registroCtrl.form">
+      <md-content layout-gt-sm="row" layout-padding class="page-container _md">
+        <md-card flex>
+          <h2 class="text-center">Registro de Gimnasio</h2>
+          <md-input-container>
+            <label>Correo</label>
+            <md-icon md-font-icon="fa-at" class="fa"></md-icon>
+            <input type="email" required name="correo" ng-model="registroCtrl.Correo">
+            <div ng-messages="registroCtrl.form.correo.$error" ng-if="registroCtrl.form.correo.$touched">
+              <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
+              <div ng-message="email">Correo inv&aacute;lido.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Membres&iacute;a</label>
+            <md-icon md-font-icon="fa-vcard-o" class="fa"></md-icon>            
+            <md-select placeholder="Seleccionar membresia" ng-model="registroCtrl.membresia" md-on-open="registroCtrl.retornarMembresias()" style="min-width: 200px;">
+              <md-option ng-value="membresia" ng-repeat="membresia in registroCtrl.membresias">{{membresia.Nombre}}</md-option>
+            </md-select>
+            {{registroCtrl.membresia}}
+            <div ng-messages="registroCtrl.form.contrasena.$error" ng-if="registroCtrl.form.contrasena.$touched">
+              <div ng-message="required"><b>Debe</b> agregar una contrase&ntilde;a.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Contrase&ntilde;a</label>
+            <md-icon md-font-icon="fa-key" class="fa"></md-icon>
+            <input required name="contrasena" ng-model="registroCtrl.Clave">
+            <div ng-messages="registroCtrl.form.contrasena.$error" ng-if="registroCtrl.form.contrasena.$touched">
+              <div ng-message="required"><b>Debe</b> agregar una contrase&ntilde;a.</div>
+            </div>
+          </md-input-container>
+
+          <div layout="row" layout-sm="column" layout-align="center center">
+            <md-button class="md-raised md-primary" ng-disabled="registroCtrl.form.$invalid" ng-click="registroCtrl.crear()">Crear</md-button>
+          </div>
+        </md-card>
+      </md-content>
+    </form>
+  </div>
+  <div flex="20"></div>
+</div>

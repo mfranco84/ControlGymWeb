@@ -6,9 +6,14 @@
     'ngMessages',
     'ui.router',
     'ngResource',
+    'ngStorage',
 
     // Application Modules
+    'ControlGymApp.services',
     'ControlGymApp.controllers',
+    'login',
+    'registro',
+    'gimnasio',
     'miembros',
   ]);
   angular.module('ControlGymApp.services', []);
@@ -18,12 +23,17 @@
   angular.module('ControlGymApp').config(RouteConfiguration);
   RouteConfiguration.$inject = ['$urlRouterProvider', '$stateProvider'];
     function RouteConfiguration ($urlRouterProvider, $stateProvider) {
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/login');
       $stateProvider
         .state('login', {
           url:'/login',
           templateUrl: 'js/login/tmp/login.html',
-          // controller: 'loginController as loginCtrl'
+          controller: 'LoginController as loginCtrl'
+        })
+        .state('registro', {
+          url:'/registro',
+          templateUrl: 'js/registro/tmp/registro.html',
+          controller: 'RegistroController as registroCtrl'
         })
         .state('app', {
           url:'/app',

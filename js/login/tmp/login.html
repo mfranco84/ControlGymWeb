@@ -1,1 +1,38 @@
-LOGIN
+<md-toolbar layout="row">
+  <div flex class="text-center"><h1>Control Gym Web - Administraci&oacute;n</h1></div>
+</md-toolbar>
+<div class="container" layout="row" flex>
+  <div flex="20"></div>
+  <div flex>
+    <form name="loginCtrl.form">
+      <md-content layout-gt-sm="row" layout-padding class="page-container _md">
+        <md-card flex>
+          <h2 class="text-center">Acceso de usuario</h2>
+          <md-input-container>
+            <label>Correo</label>
+            <md-icon md-font-icon="fa-at" class="fa"></md-icon>
+            <input type="email" required name="correo" ng-model="loginCtrl.Correo">
+            <div ng-messages="loginCtrl.form.correo.$error" ng-if="loginCtrl.form.correo.$touched">
+              <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
+              <div ng-message="email">Correo inv&aacute;lido.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Contrase&ntilde;a</label>
+            <md-icon md-font-icon="fa-key" class="fa"></md-icon>
+            <input required name="contrasena" ng-model="loginCtrl.Clave">
+            <div ng-messages="loginCtrl.form.contrasena.$error" ng-if="loginCtrl.form.contrasena.$touched">
+              <div ng-message="required"><b>Debe</b> agregar una contrase&ntilde;a.</div>
+            </div>
+          </md-input-container>
+          <div layout="row" layout-sm="column" layout-align="center center">
+            <md-button class="md-raised md-primary" ng-disabled="loginCtrl.form.$invalid" ng-click="loginCtrl.autenticar()">Acceder</md-button>
+            <md-button class="md-raised md-primary" ui-sref="registro">Registrar Gimnasio</md-button>
+          </div>
+        </md-card>
+      </md-content>
+    </form>
+  </div>
+  <div flex="20"></div>
+</div>

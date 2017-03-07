@@ -41,3 +41,8 @@ md-list-item > button{
 .fondorojo{background-color: red}
 .fondoceleste{background-color: lightblue}
 .fondoverdeclaro{background-color: lightgreen}
+
+.text-center {
+  text-align: center;
+}
+

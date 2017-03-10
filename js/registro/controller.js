@@ -3,8 +3,8 @@
   angular.module('registro.controllers')
     .controller('RegistroController', RegistroController);
 
-    RegistroController.$inject = ['$resource', '$sessionStorage', '$state', 'gimnasioServicio', 'membresiaServicio'];
-    function RegistroController ($resource, $sessionStorage, $state, gimnasioServicio, membresiaServicio){
+    RegistroController.$inject = ['$resource', '$sessionStorage', '$state', 'gimnasioServicio', 'membresiaServicio', 'administradorServicio'];
+    function RegistroController ($resource, $sessionStorage, $state, gimnasioServicio, membresiaServicio, administradorServicio){
       var registroCtrl = this;
       
       membresiaServicio.query().$promise.then(function(data){
@@ -22,12 +22,27 @@
       };
 
       registroCtrl.crear = function () {
-        var registroData = {
-          Correo: registroCtrl.Correo,
-          Clave: registroCtrl.Clave
+        var gimnasio = {
+          IdMembresia: registroCtrl.membresia.IdMembresia,
+          Nombre: registroCtrl.nombreGimnasio,
         };
-        gimnasioServicio.save(registroData).$promise.then(function(data){
-          console.log('data: ', data);
+
+        var administrador = {
+          IdGimnasio: null,
+          Correo: registroCtrl.correo,
+          Clave: registroCtrl.clave,
+          Nombre: registroCtrl.nombreAdministrador,
+          Telefono: registroCtrl.telefono,
+          CedulaJuridica: registroCtrl.identificacion,
+          Direccion: registroCtrl.direccion,
+        };
+        gimnasioServicio.save(gimnasio).$promise.then(function(gim){
+          console.log('Gimnasio: ', gim);
+          administrador.IdGimnasio = gim.IdGimnasio;
+          administradorServicio.save(administrador).$promise.then(function(adm){
+            console.log('Adminitrador: ', adm);
+
+          });
         });
       };
     }

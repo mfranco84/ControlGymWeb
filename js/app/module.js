@@ -15,6 +15,7 @@
     'registro',
     'gimnasio',
     'miembros',
+    'administrador',
   ]);
   angular.module('ControlGymApp.services', []);
   angular.module('ControlGymApp.controllers', []);

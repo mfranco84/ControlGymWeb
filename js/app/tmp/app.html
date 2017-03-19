@@ -7,9 +7,19 @@
 <div class="container" layout="row" flex>
   <md-sidenav class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="sideNav">
     <md-list>
-      <md-list-item class="md-2-line">
+      <md-list-item>
         <md-button ng-click="controlGymCtrl.abrirSeccion('app.miembros.lista')">
           Miembros
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button ng-click="controlGymCtrl.abrirSeccion('app.clases.lista')">
+          Clases y Horarios
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button ng-click="controlGymCtrl.logout()">
+          Cerrar sesi&oacute;n
         </md-button>
       </md-list-item>
     </md-list>

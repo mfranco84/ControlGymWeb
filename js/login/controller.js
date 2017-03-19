@@ -13,8 +13,7 @@
           Clave: loginCtrl.Clave
         };
         loginServicio.post(loginData).$promise.then(function(data){
-          console.log('data: ', data);
-          console.log('$sessionStorage: ', $sessionStorage);
+          $state.go('app');
         });
       };
     }

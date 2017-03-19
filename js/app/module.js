@@ -78,4 +78,19 @@
         params: { miembro: null },
       });
   }
+
+  angular.module('ControlGymApp').run(RunConfiguration);
+  RunConfiguration.$inject = ['$rootScope', '$state', '$sessionStorage'];
+  function RunConfiguration ($rootScope, $state, $sessionStorage) {
+    // Prevenir que un usuario sin token pueda entrar a la aplicacion
+    $rootScope.$on('$stateChangeStart', 
+    function(event, toState, toParams, fromState, fromParams){
+      if (!$sessionStorage.auth && toState.name !== 'login') {
+        console.log('toState: ', toState);
+        console.log('fromState: ', fromState);
+        event.preventDefault();
+        $state.transitionTo('login');
+      }
+    });
+  }
 }());

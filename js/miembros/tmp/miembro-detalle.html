@@ -5,14 +5,59 @@
     <div layout-gt-sm="row">
       <md-input-container flex>
         <label>Nombre</label>
-        <input type="text" name="autocompleteField" ng-model="miembroDetalleCtrl.miembro.Nombre" required/>
-        <div ng-messages="miembroDetalleCtrl.form.autocompleteField.$error" ng-if="miembroDetalleCtrl.form.autocompleteField.$touched">
+        <input type="text" name="nombre" ng-model="miembroDetalleCtrl.miembro.Nombre" minlength="2" maxlength="50" required/>
+        <div ng-messages="miembroDetalleCtrl.form.nombre.$error" ng-if="miembroDetalleCtrl.form.nombre.$touched">
           <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
-          <div ng-message="md-require-match">Please select an existing state.</div>
-          <div ng-message="minlength">Your entry is not long enough.</div>
-          <div ng-message="maxlength">Your entry is too long.</div>
+          <div ng-message="minlength">Nombre debe ser mayor a 2 dígitos.</div>
+          <div ng-message="maxlength">Nombre debe ser menor a 50 dígitos.</div>
         </div>
       </md-input-container>
+      <md-input-container flex>
+        <label>Correo</label>
+        <input type="email" name="correo" ng-model="miembroDetalleCtrl.miembro.Correo" minlength="2" maxlength="50" required/>
+        <div ng-messages="miembroDetalleCtrl.form.correo.$error" ng-if="miembroDetalleCtrl.form.correo.$touched">
+          <div ng-message="required"><b>Debe</b> agregar un correo completo.</div>
+          <div ng-message="minlength">Correo debe ser mayor a 2 dígitos.</div>
+          <div ng-message="maxlength">Correo debe ser menor a 50 dígitos.</div>
+          <div ng-message="email">Correo inv&aacute;lido.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container flex>
+        <label>Teléfono</label>
+        <input type="text" name="telefono" ng-model="miembroDetalleCtrl.miembro.Telefono" minlength="7" maxlength="9" required/>
+        <div ng-messages="miembroDetalleCtrl.form.telefono.$error" ng-if="miembroDetalleCtrl.form.telefono.$touched">
+          <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
+          <div ng-message="minlength">Teléfono debe ser mayor a 7 dígitos.</div>
+          <div ng-message="maxlength">Teléfono debe ser menor a 9 dígitos.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Cédula</label>
+        <input type="text" name="cedula" ng-model="miembroDetalleCtrl.miembro.CedulaIdentidad" minlength="8" maxlength="15" required/>
+        <div ng-messages="miembroDetalleCtrl.form.cedula.$error" ng-if="miembroDetalleCtrl.form.cedula.$touched">
+          <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
+          <div ng-message="minlength">Cédula debe ser mayor a 8 dígitos.</div>
+          <div ng-message="maxlength">Cédula debe ser menor a 15 dígitos.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container flex>
+        <label>Dirección</label>
+        <input type="text" name="direccion" ng-model="miembroDetalleCtrl.miembro.Direccion" minlength="5" maxlength="100" required/>
+        <div ng-messages="miembroDetalleCtrl.form.direccion.$error" ng-if="miembroDetalleCtrl.form.direccion.$touched">
+          <div ng-message="required"><b>Debe</b> agregar una dirección.</div>
+          <div ng-message="minlength">Dirección debe ser mayor a 2 dígitos.</div>
+          <div ng-message="maxlength">Dirección debe ser menor a 50 dígitos.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+      <md-button class="md-primary md-raised" ng-disabled="miembroDetalleCtrl.form.$invalid" ng-click="miembroDetalleCtrl.guardarMiembro()">
+        Guardar
+      </md-button>
     </div>
   </form>
 

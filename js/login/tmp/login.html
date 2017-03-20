@@ -21,7 +21,7 @@
           <md-input-container>
             <label>Contrase&ntilde;a</label>
             <md-icon md-font-icon="fa-key" class="fa"></md-icon>
-            <input required name="contrasena" ng-model="loginCtrl.Clave">
+            <input type="password" required name="contrasena" ng-model="loginCtrl.Clave">
             <div ng-messages="loginCtrl.form.contrasena.$error" ng-if="loginCtrl.form.contrasena.$touched">
               <div ng-message="required"><b>Debe</b> agregar una contrase&ntilde;a.</div>
             </div>

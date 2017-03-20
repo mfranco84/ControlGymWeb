@@ -21,18 +21,31 @@
       };
     }
 
-    MiembroDetalleController.$inject = ['$stateParams', 'miembroServicio'];
-    function MiembroDetalleController ($stateParams, miembroServicio){
+    MiembroDetalleController.$inject = ['$stateParams', '$sessionStorage', 'miembroServicio'];
+    function MiembroDetalleController ($stateParams, $sessionStorage, miembroServicio){
       var miembroDetalleCtrl = this;
-      miembroDetalleCtrl.miembro = null;
+      miembroDetalleCtrl.miembro = {
+        IdGimnasio: $sessionStorage.usuario.IdGimnasio,
+      };
       
       if ($stateParams && $stateParams.miembro) {
-      console.log($stateParams.miembro);
-      miembroDetalleCtrl.miembro = $stateParams.miembro;
-    }
+        miembroDetalleCtrl.miembro = $stateParams.miembro;
+      }
 
-      miembroDetalleCtrl.abrirMiembro = function (idMiembro) {
-        $state.go('app.miembros.detalle');
+      miembroDetalleCtrl.guardarMiembro = function () {
+        if (miembroDetalleCtrl.form.$valid) {
+          if (miembroDetalleCtrl.miembro.IdMiembro) {
+            // miembroServicio.put({IdMiembro:miembroDetalleCtrl.miembro.IdMiembro}, miembroDetalleCtrl.miembro); // Ambas funcionan
+            miembroDetalleCtrl.miembro.$put().then(function(data){
+              console.log('actualizado: ', data);
+            });
+          } else {
+            miembroServicio.save({IdMiembro:miembroDetalleCtrl.miembro.IdMiembro}, miembroDetalleCtrl.miembro)
+            .$promise.then(function(data){
+              console.log('creado: ', data);
+            });
+          }
+        }
       };
     }
 

@@ -1,0 +1,19 @@
+<md-content class="" flex style="overflow-x: hidden;">
+
+  <form name="claseDetalleCtrl.form">
+    <p>The following example demonstrates floating labels being used as a normal form element.</p>
+    <div layout-gt-sm="row">
+      <md-input-container flex>
+        <label>Nombre</label>
+        <input type="text" name="nombre" ng-model="claseDetalleCtrl.clase.Nombre" required minlength="2" maxlength="25"/>
+        <div ng-messages="claseDetalleCtrl.form.nombre.$error" ng-if="claseDetalleCtrl.form.nombre.$touched">
+          <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
+          <div ng-message="md-require-match">Please select an existing state.</div>
+          <div ng-message="minlength">Nombre debe ser mayor a 2 dígitos.</div>
+          <div ng-message="maxlength">Nombre debe ser menor a 25 dígitos.</div>
+        </div>
+      </md-input-container>
+    </div>
+  </form>
+
+</md-content>

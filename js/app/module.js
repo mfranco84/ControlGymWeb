@@ -16,6 +16,7 @@
     'gimnasio',
     'miembros',
     'administrador',
+    'clase',
   ]);
   angular.module('ControlGymApp.services', []);
   angular.module('ControlGymApp.controllers', []);
@@ -76,7 +77,23 @@
         templateUrl: 'js/miembros/tmp/miembro-detalle.html',
         controller: 'MiembroDetalleController as miembroDetalleCtrl',
         params: { miembro: null },
-      });
+      })
+      .state('app.clases', {
+        url:'/clases',
+        template: '<ui-view/>'
+      })
+      .state('app.clases.lista', {
+        url:'/lista',
+        templateUrl: 'js/clase/tmp/clases.html',
+        controller: 'ClasesController as clasesCtrl'
+      })
+      .state('app.clases.detalle', {
+        url: '/{id:[0-9]*}',
+        templateUrl: 'js/clase/tmp/clase-detalle.html',
+        controller: 'ClaseDetalleController as claseDetalleCtrl',
+        params: { clase: null },
+      })
+      ;
   }
 
   angular.module('ControlGymApp').run(RunConfiguration);

@@ -21,8 +21,8 @@
       };
     }
 
-    MiembroDetalleController.$inject = ['$stateParams', '$sessionStorage', 'miembroServicio'];
-    function MiembroDetalleController ($stateParams, $sessionStorage, miembroServicio){
+    MiembroDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'miembroServicio'];
+    function MiembroDetalleController ($state, $stateParams, $sessionStorage, miembroServicio){
       var miembroDetalleCtrl = this;
       miembroDetalleCtrl.miembro = {
         IdGimnasio: $sessionStorage.usuario.IdGimnasio,
@@ -43,6 +43,7 @@
             miembroServicio.save({IdMiembro:miembroDetalleCtrl.miembro.IdMiembro}, miembroDetalleCtrl.miembro)
             .$promise.then(function(data){
               console.log('creado: ', data);
+              $state.go('app.miembros.lista');
             });
           }
         }

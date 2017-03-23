@@ -25,10 +25,14 @@
     function ClaseDetalleController ($stateParams, claseServicio){
       var claseDetalleCtrl = this;
       claseDetalleCtrl.clase = null;
+      claseDetalleCtrl.horarios = null;
       
       if ($stateParams && $stateParams.clase) {
       console.log($stateParams.clase);
       claseDetalleCtrl.clase = $stateParams.clase;
+      claseServicio.getHorarios({idClase:claseDetalleCtrl.clase.IdClase}).$promise.then(function(data){
+        claseDetalleCtrl.horarios = data;
+      });
     }
 
       claseDetalleCtrl.abrirClase = function (idClase) {

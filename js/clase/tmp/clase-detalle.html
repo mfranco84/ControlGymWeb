@@ -1,19 +1,61 @@
 <md-content class="" flex style="overflow-x: hidden;">
 
   <form name="claseDetalleCtrl.form">
-    <p>The following example demonstrates floating labels being used as a normal form element.</p>
+    <p>Ingresa los detalles correspondientes para la clase.</p>
     <div layout-gt-sm="row">
       <md-input-container flex>
         <label>Nombre</label>
         <input type="text" name="nombre" ng-model="claseDetalleCtrl.clase.Nombre" required minlength="2" maxlength="25"/>
         <div ng-messages="claseDetalleCtrl.form.nombre.$error" ng-if="claseDetalleCtrl.form.nombre.$touched">
-          <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
-          <div ng-message="md-require-match">Please select an existing state.</div>
+          <div ng-message="required"><b>Debe</b> agregar un nombre.</div>
           <div ng-message="minlength">Nombre debe ser mayor a 2 dígitos.</div>
           <div ng-message="maxlength">Nombre debe ser menor a 25 dígitos.</div>
         </div>
       </md-input-container>
     </div>
+    <p>Agregue los horarios para esta clase.</p>
+    <md-button class="md-fab md-mini md-primary" ng-click="claseDetalleCtrl.agregarHorario()">
+      <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
+    </md-button>
+    <div layout-gt-sm="row" ng-repeat="horario in claseDetalleCtrl.horarios">
+      <md-input-container flex>
+        <label>D&iacute;a</label>
+        <md-select name="dia{{::horario.Dia}}" placeholder="Seleccionar d&iacute;a" ng-model="horario.Dia" required>
+          <md-option></md-option>
+          <md-option value="Lunes">Lunes</md-option>
+          <md-option value="Martes">Martes</md-option>
+          <md-option value="Miercoles">Mi&eacute;rcoles</md-option>
+          <md-option value="Jueves">Jueves</md-option>
+          <md-option value="Viernes">Viernes</md-option>
+          <md-option value="Sabado">S&aacute;bado</md-option>
+          <md-option value="Domingo">Domingo</md-option>
+        </md-select>
+        <div ng-messages="claseDetalleCtrl.form.dia.$error" ng-if="claseDetalleCtrl.form.dia.$touched">
+          <div ng-message="required"><b>Debe</b> agregar un nombre.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Hora Inicio</label>
+        <input type="text" name="inicio{{$index}}" ng-model="horario.HoraInicio" ng-pattern="claseDetalleCtrl.horaPattern" required maxlength="5"/>
+        <div ng-messages="claseDetalleCtrl.form.inicio.$error" ng-if="claseDetalleCtrl.form.inicio.$touched">
+          <div ng-message="required"><b>Debe</b> agregar una hora de inicio.</div>
+          <div ng-message="pattern">El dato no corresponde a una hora válida.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Hora Fin</label>
+        <input type="text" name="fin{{$index}}" ng-model="horario.HoraFin" ng-pattern="claseDetalleCtrl.horaPattern" required maxlength="5"/>
+        <div ng-messages="claseDetalleCtrl.form['fin'+$index].$error" ng-if="claseDetalleCtrl.form['fin'+$index].$touched">
+          <div ng-message="required"><b>Debe</b> agregar una hora final.</div>
+          <div ng-message="pattern">El dato no corresponde a una hora válida.</div>
+        </div>
+      </md-input-container>
+      <md-divider ng-if="!$last"></md-divider>
+    </div>
+    <div layout-gt-sm="row">
+      <md-button class="md-primary md-raised" ng-disabled="claseDetalleCtrl.form.$invalid" ng-click="claseDetalleCtrl.guardarClase()">
+        Guardar
+      </md-button>
+    </div>
   </form>
-  {{claseDetalleCtrl.horarios}}
 </md-content>

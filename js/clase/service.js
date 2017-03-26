@@ -11,11 +11,27 @@
           idClase: '@idClase',
         },
         {
+        put: {
+          method: 'PUT',
+        },
         getHorarios: {
           method: 'GET',
           url: baseUrl + '/clase/:idClase/horarios',
           isArray: true,
           params: {idClase: '@idClase'},
+          transformResponse: function (data) {
+            data = angular.fromJson(data);
+            // Transformando datos de cada horario
+            data.forEach(function(horario){
+              if (horario.HoraInicio) {
+                horario.HoraInicio = horario.HoraInicio.substring(0, 5);
+              }
+              if (horario.HoraFin) {
+                horario.HoraFin = horario.HoraFin.substring(0, 5);
+              }
+            });
+            return data;
+          },
         }
       });
 

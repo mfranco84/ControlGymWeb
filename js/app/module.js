@@ -102,7 +102,7 @@
     // Prevenir que un usuario sin token pueda entrar a la aplicacion
     $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams){
-      if (!$sessionStorage.auth && toState.name !== 'login') {
+      if (!$sessionStorage.auth && toState.name !== 'login' && toState.name !== 'registro') {
         console.log('toState: ', toState);
         console.log('fromState: ', fromState);
         event.preventDefault();

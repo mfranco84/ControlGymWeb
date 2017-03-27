@@ -13,10 +13,12 @@
         </div>
       </md-input-container>
     </div>
-    <p>Agregue los horarios para esta clase.</p>
-    <md-button class="md-fab md-mini md-primary" ng-click="claseDetalleCtrl.agregarHorario()">
-      <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
-    </md-button>
+    <p>
+      Agregue los horarios para esta clase.
+      <md-button class="md-fab md-mini md-primary" ng-click="claseDetalleCtrl.agregarHorario()">
+        <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
+      </md-button>
+    </p>
     <div layout-gt-sm="row" ng-repeat="horario in claseDetalleCtrl.horarios">
       <md-input-container flex>
         <label>D&iacute;a</label>
@@ -49,6 +51,11 @@
           <div ng-message="required"><b>Debe</b> agregar una hora final.</div>
           <div ng-message="pattern">El dato no corresponde a una hora válida.</div>
         </div>
+      </md-input-container>
+      <md-input-container flex>
+        <md-button class="md-fab md-mini md-alert" ng-click="claseDetalleCtrl.eliminarHorario(horario)">
+          <md-icon md-font-icon="fa-times" class="fa"></md-icon>
+        </md-button>
       </md-input-container>
       <md-divider ng-if="!$last"></md-divider>
     </div>

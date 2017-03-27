@@ -3,7 +3,6 @@
   angular.module('clase.services')
     .service('claseServicio', ClaseServicio);
     ClaseServicio.$inject = ['$resource', '$sessionStorage'];
-
     function ClaseServicio ($resource, $sessionStorage){
       var baseUrl = 'http://localhost:50639/api';
       // var baseUrl = 'http://controlgymapi.azurewebsites.net/api';
@@ -32,6 +31,24 @@
             });
             return data;
           },
+        }
+      });
+
+      return service;
+    }
+
+  angular.module('clase.services')
+    .service('horarioServicio', HorarioServicio);
+    HorarioServicio.$inject = ['$resource', '$sessionStorage'];
+    function HorarioServicio ($resource, $sessionStorage){
+      var baseUrl = 'http://localhost:50639/api';
+      // var baseUrl = 'http://controlgymapi.azurewebsites.net/api';
+      var service = $resource(baseUrl + '/HorarioClase/:IdHorarioClase', {
+          IdHorarioClase: '@IdHorarioClase',
+        },
+        {
+        put: {
+          method: 'PUT',
         }
       });
 

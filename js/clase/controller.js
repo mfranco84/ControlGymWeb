@@ -21,13 +21,13 @@
       };
     }
 
-    ClaseDetalleController.$inject = ['$sessionStorage', '$stateParams', 'claseServicio'];
-    function ClaseDetalleController ($sessionStorage, $stateParams, claseServicio){
+    ClaseDetalleController.$inject = ['$state', '$sessionStorage', '$stateParams', 'claseServicio', 'horarioServicio'];
+    function ClaseDetalleController ($state, $sessionStorage, $stateParams, claseServicio, horarioServicio){
       var claseDetalleCtrl = this;
       claseDetalleCtrl.clase = {
         IdGimnasio: $sessionStorage.usuario.IdGimnasio,
       };
-      claseDetalleCtrl.horarios = null;
+      claseDetalleCtrl.horarios = [];
       claseDetalleCtrl.horaPattern = '[0-2][0-9]:[0-5][0-9]';
       
       if ($stateParams && $stateParams.clase) {
@@ -58,11 +58,24 @@
             claseServicio.save(claseDetalleCtrl.clase)
             .$promise.then(function(data){
               console.log('creado: ', data);
-              //$state.go('app.clases');
+              saveHorarios();
             });
           }
         }
       };
+
+      function saveHorarios () {
+        claseDetalleCtrl.horarios.forEach(function(horario){
+          if (horario.IdHorarioClase) {
+            horarioServicio.put({IdHorarioClase:horario.IdHorarioClase}, horario);
+            console.log('put :' + horario.IdHorarioClase);
+          } else {
+            console.log('post:');
+            horarioServicio.save(horario);
+          }
+        });
+        $state.go('app.clases.lista');
+      }
 
     }
 

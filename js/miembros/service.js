@@ -2,12 +2,11 @@
   "use strict";
   angular.module('miembros.services')
     .service('miembroServicio', MiembroServicio);
-    MiembroServicio.$inject = ['$resource'];
+    
+    MiembroServicio.$inject = ['$resource', 'sesionServicio'];
 
-    function MiembroServicio ($resource){
-      var baseUrl = 'http://localhost:50639/api';
-      // var baseUrl = 'http://controlgymapi.azurewebsites.net/api';
-      var service = $resource(baseUrl + '/miembro/:IdMiembro', {
+    function MiembroServicio ($resource, sesionServicio){
+      var service = $resource(sesionServicio.obtenerUrlBase() + '/miembro/:IdMiembro', {
           IdMiembro: '@IdMiembro',
         },
         {

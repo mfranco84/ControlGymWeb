@@ -2,11 +2,11 @@
   "use strict";
   angular.module('clase.services')
     .service('claseServicio', ClaseServicio);
-    ClaseServicio.$inject = ['$resource', '$sessionStorage'];
-    function ClaseServicio ($resource, $sessionStorage){
-      var baseUrl = 'http://localhost:50639/api';
-      // var baseUrl = 'http://controlgymapi.azurewebsites.net/api';
-      var service = $resource(baseUrl + '/clase/:idClase', {
+    
+    ClaseServicio.$inject = ['$resource', 'sesionServicio'];
+    
+    function ClaseServicio ($resource, sesionServicio){
+      var service = $resource(sesionServicio.obtenerUrlBase() + '/clase/:idClase', {
           idClase: '@idClase',
         },
         {
@@ -15,7 +15,7 @@
         },
         getHorarios: {
           method: 'GET',
-          url: baseUrl + '/clase/:idClase/horarios',
+          url: sesionServicio.obtenerUrlBase() + '/clase/:idClase/horarios',
           isArray: true,
           params: {idClase: '@idClase'},
           transformResponse: function (data) {
@@ -39,11 +39,9 @@
 
   angular.module('clase.services')
     .service('horarioServicio', HorarioServicio);
-    HorarioServicio.$inject = ['$resource', '$sessionStorage'];
-    function HorarioServicio ($resource, $sessionStorage){
-      var baseUrl = 'http://localhost:50639/api';
-      // var baseUrl = 'http://controlgymapi.azurewebsites.net/api';
-      var service = $resource(baseUrl + '/HorarioClase/:IdHorarioClase', {
+    HorarioServicio.$inject = ['$resource', 'sesionServicio'];
+    function HorarioServicio ($resource, sesionServicio){
+      var service = $resource(sesionServicio.obtenerUrlBase() + '/HorarioClase/:IdHorarioClase', {
           IdHorarioClase: '@IdHorarioClase',
         },
         {

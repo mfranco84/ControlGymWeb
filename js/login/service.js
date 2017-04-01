@@ -2,6 +2,7 @@
   "use strict";
   angular.module('login.services')
     .service('loginServicio', LoginServicio);
+    
     LoginServicio.$inject = ['$sessionStorage', '$resource', 'sesionServicio'];
 
     function LoginServicio ($sessionStorage, $resource, sesionServicio){

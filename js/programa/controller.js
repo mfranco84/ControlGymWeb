@@ -28,6 +28,7 @@
     ProgramaDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'programaServicio', 'rutinaServicio'];
     function ProgramaDetalleController ($state, $stateParams, $sessionStorage, programaServicio, rutinaServicio){
       var programaDetalleCtrl = this;
+      programaDetalleCtrl.rutinas = [];
       programaDetalleCtrl.programa = {
         IdMiembro: $stateParams.id,
       };
@@ -57,29 +58,30 @@
             programaServicio.put({IdPrograma:programaDetalleCtrl.programa.IdProgramaEjercicio}, programaDetalleCtrl.programa)
             .$promise.then(function(data){
               console.log('actualizado: ', data);
-              //saveRutinas();
+              saveRutinas(data.IdProgramaEjercicio);
             });
           } else {
             programaServicio.save(programaDetalleCtrl.programa)
             .$promise.then(function(data){
               console.log('creado: ', data);
-              //saveRutinas();
+              saveRutinas(data.IdProgramaEjercicio);
             });
           }
         }
       };
 
-      function saveRutinas () {
-        programaDetalleCtrl.horarios.forEach(function(horario){
-          if (horario.IdHorarioClase) {
-            rutinaServicio.put({IdHorarioClase:horario.IdHorarioClase}, horario);
-            console.log('put :' + horario.IdHorarioClase);
+      function saveRutinas (IdProgramaEjercicio) {
+        programaDetalleCtrl.rutinas.forEach(function(rutina){
+          rutina.IdProgramaEjercicio = IdProgramaEjercicio;
+          if (rutina.IdRutina) {
+            rutinaServicio.put({IdRutina:rutina.IdRutina}, rutina);
+            console.log('put :' + rutina.IdRutina);
           } else {
             console.log('post:');
-            rutinaServicio.save(horario);
+            rutinaServicio.save(rutina);
           }
         });
-        $state.go('app.miembros.lista');
+        // $state.go('app.miembros.lista');
       }
 
     }

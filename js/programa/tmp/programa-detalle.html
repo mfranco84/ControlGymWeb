@@ -1,0 +1,73 @@
+<md-content class="" flex style="overflow-x: hidden;">
+
+  <form name="programaDetalleCtrl.form">
+    <p>Ingrese la información necesaria del programa.</p>
+    <div layout-gt-sm="row">
+      <md-input-container flex>
+        <label>Nombre</label>
+        <input type="text" name="nombre" ng-model="programaDetalleCtrl.programa.NombrePrograma" minlength="2" maxlength="50" required/>
+        <div ng-messages="programaDetalleCtrl.form.nombre.$error" ng-if="programaDetalleCtrl.form.nombre.$touched">
+          <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
+          <div ng-message="minlength">Nombre debe ser mayor a 2 dígitos.</div>
+          <div ng-message="maxlength">Nombre debe ser menor a 50 dígitos.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Fecha de Inicio</label>
+        <md-datepicker name="FechaInicio" ng-model="programaDetalleCtrl.programa.FechaInicio" required></md-datepicker>
+        <div ng-messages="programaDetalleCtrl.form.FechaInicio.$error" ng-if="programaDetalleCtrl.form.FechaInicio.$touched">
+          <div ng-message="required"><b>Debe</b> agregar una fecha.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Fecha Final</label>
+        <md-datepicker name="FechaFin" ng-model="programaDetalleCtrl.programa.FechaFin" required></md-datepicker>
+        <div ng-messages="programaDetalleCtrl.form.FechaFin.$error" ng-if="programaDetalleCtrl.form.FechaFin.$touched">
+          <div ng-message="required"><b>Debe</b> agregar una fecha.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <p>
+      Agregue las rutinas para este programa.
+      <md-button class="md-fab md-mini md-primary" ng-click="programaDetalleCtrl.agregarRutina()">
+        <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
+      </md-button>
+    </p>
+    <div layout-gt-sm="row" ng-repeat="rutina in programaDetalleCtrl.rutinas">
+      <md-input-container flex>
+        <label>D&iacute;a</label>
+        <md-select name="dia{{$index}}" placeholder="Seleccionar d&iacute;a" ng-model="rutina.NombreRutina" required>
+          <md-option value="Dia 1">D&iacute;a 1</md-option>
+          <md-option value="Dia 2">D&iacute;a 2</md-option>
+          <md-option value="Dia 3">D&iacute;a 3</md-option>
+          <md-option value="Dia 4">D&iacute;a 4</md-option>
+          <md-option value="Dia 5">D&iacute;a 5</md-option>
+          <md-option value="Dia 6">D&iacute;a 6</md-option>
+          <md-option value="Dia 7">D&iacute;a 7</md-option>
+        </md-select>
+        <div ng-messages="claseDetalleCtrl.form['dia'+$index].$error" ng-if="claseDetalleCtrl.form['dia'+$index].$touched">
+          <div ng-message="required"><b>Debe</b> agregar un d&iacute;a.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Detalle de la rutina</label>
+        <textarea name="detalle{{$index}}" ng-model="rutina.DetalleRutina" required maxlength="250"></textarea>
+        <div ng-messages="claseDetalleCtrl.form['detalle'+$index].$error" ng-if="claseDetalleCtrl.form['detalle'+$index].$touched">
+          <div ng-message="required"><b>Debe</b> agregar el detalle de la rutina.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <md-button class="md-fab md-mini md-alert" ng-click="claseDetalleCtrl.eliminarRutina(rutina)">
+          <md-icon md-font-icon="fa-times" class="fa"></md-icon>
+        </md-button>
+      </md-input-container>
+      <md-divider ng-if="!$last"></md-divider>
+    </div>
+    <div layout-gt-sm="row">
+      <md-button class="md-primary md-raised" ng-disabled="programaDetalleCtrl.form.$invalid" ng-click="programaDetalleCtrl.guardarPrograma()">
+        Guardar
+      </md-button>
+    </div>
+  </form>
+
+</md-content>

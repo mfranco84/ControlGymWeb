@@ -17,6 +17,7 @@
     'miembros',
     'administrador',
     'clase',
+    'programa',
   ]);
   angular.module('ControlGymApp.services', []);
   angular.module('ControlGymApp.controllers', []);
@@ -42,7 +43,6 @@
         return service;
       }
     ];
-
     $httpProvider.interceptors.push(interceptor);
 
     // Route Configuration
@@ -92,6 +92,22 @@
         templateUrl: 'js/clase/tmp/clase-detalle.html',
         controller: 'ClaseDetalleController as claseDetalleCtrl',
         params: { clase: null },
+      })
+      .state('app.programas', {
+        url:'/programas',
+        template: '<ui-view/>'
+      })
+      .state('app.programas.lista', {
+        url:'/lista',
+        templateUrl: 'js/programa/tmp/programas.html',
+        controller: 'ProgramasController as programasCtrl',
+        params: { id: null },
+      })
+      .state('app.programas.detalle', {
+        url: '/{id:[0-9]*}',
+        templateUrl: 'js/programa/tmp/programa-detalle.html',
+        controller: 'ProgramaDetalleController as programaDetalleCtrl',
+        params: { programa: null },
       })
       ;
   }

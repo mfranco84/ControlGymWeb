@@ -32,6 +32,10 @@
         miembroDetalleCtrl.miembro = $stateParams.miembro;
       }
 
+      miembroDetalleCtrl.abrirProgramasMiembro = function () {
+        $state.go('app.programas.lista', {id: miembroDetalleCtrl.miembro.IdMiembro});
+      };
+
       miembroDetalleCtrl.guardarMiembro = function () {
         if (miembroDetalleCtrl.form.$valid) {
           if (miembroDetalleCtrl.miembro.IdMiembro) {
@@ -48,6 +52,7 @@
           }
         }
       };
+
     }
 
 })();

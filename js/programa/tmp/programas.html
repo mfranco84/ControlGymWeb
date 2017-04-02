@@ -1,0 +1,30 @@
+<md-toolbar md-scroll-shrink>
+  <div class="md-toolbar-tools">Programas
+    <span flex></span>
+    <md-button class="md-raised" ng-click="programasCtrl.abrirProgramaRutinas(programa.IdProgramaEjercicio)">
+      <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
+      Agregar
+    </md-button>
+  </div>
+</md-toolbar>
+<md-content class="" flex>
+  <style type="text/css">
+      .listdemoBasicUsage md-divider {
+    margin-top: 10px;
+    margin-bottom: 0; }
+  </style>
+  <md-list flex>
+    <md-subheader class="md-no-sticky">
+      Lista de programas
+    </md-subheader>
+    <md-list-item class="md-3-line" ng-repeat="programa in programasCtrl.programas" ng-click="programasCtrl.abrirProgramaRutinas(programa.IdProgramaEjercicio)">
+      <div class="md-list-item-text" layout="column">
+        <h3>{{ ::programa.NombrePrograma }}</h3>
+        <h4>Fecha de inicio: {{ ::programa.FechaInicio }}</h4>
+        <p>Fecha final: {{ ::programa.FechaFin }}</p>
+      </div>
+    </md-list-item>
+    <md-divider ></md-divider>
+  </md-list>
+
+</md-content>

@@ -1,7 +1,7 @@
 <md-content class="" flex style="overflow-x: hidden;">
 
   <form name="miembroDetalleCtrl.form">
-    <p>The following example demonstrates floating labels being used as a normal form element.</p>
+    <p>Ingrese la información necesaria del miembro.</p>
     <div layout-gt-sm="row">
       <md-input-container flex>
         <label>Nombre</label>
@@ -57,6 +57,13 @@
     <div layout-gt-sm="row">
       <md-button class="md-primary md-raised" ng-disabled="miembroDetalleCtrl.form.$invalid" ng-click="miembroDetalleCtrl.guardarMiembro()">
         Guardar
+      </md-button>
+      <span flex></span>
+      <md-button class="md-primary md-raised" ng-show="miembroDetalleCtrl.miembro.IdMiembro" ng-click="miembroDetalleCtrl.abrirProgramasMiembro()">
+        Programas de Ejercicio
+      </md-button>
+      <md-button class="md-primary md-raised" ng-show="miembroDetalleCtrl.miembro.IdMiembro" ng-click="miembroDetalleCtrl.abrirPlanesMiembro()">
+        Planes nutricionales
       </md-button>
     </div>
   </form>

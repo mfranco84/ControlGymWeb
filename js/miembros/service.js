@@ -32,6 +32,12 @@
             });
             return data;
           },*/
+        },
+        getPlanes: {
+          method: 'GET',
+          url: sesionServicio.obtenerUrlBase() + '/miembro/:IdMiembro/plannutricional',
+          isArray: true,
+          params: {IdMiembro: '@IdMiembro'},
         }
       });
 

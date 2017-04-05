@@ -36,6 +36,10 @@
         $state.go('app.programas.lista', {id: miembroDetalleCtrl.miembro.IdMiembro});
       };
 
+      miembroDetalleCtrl.abrirPlanesMiembro = function () {
+        $state.go('app.planes.lista', {id: miembroDetalleCtrl.miembro.IdMiembro});
+      };
+
       miembroDetalleCtrl.guardarMiembro = function () {
         if (miembroDetalleCtrl.form.$valid) {
           if (miembroDetalleCtrl.miembro.IdMiembro) {

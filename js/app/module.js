@@ -18,6 +18,7 @@
     'administrador',
     'clase',
     'programa',
+    'plan',
   ]);
   angular.module('ControlGymApp.services', []);
   angular.module('ControlGymApp.controllers', []);
@@ -107,6 +108,22 @@
         url: '/{id:[0-9]*}',
         templateUrl: 'js/programa/tmp/programa-detalle.html',
         controller: 'ProgramaDetalleController as programaDetalleCtrl',
+        params: { programa: null },
+      })
+      .state('app.planes', {
+        url:'/planes',
+        template: '<ui-view/>'
+      })
+      .state('app.planes.lista', {
+        url:'/lista',
+        templateUrl: 'js/plan/tmp/planes.html',
+        controller: 'PlanesController as planesCtrl',
+        params: { id: null },
+      })
+      .state('app.planes.detalle', {
+        url: '/{id:[0-9]*}',
+        templateUrl: 'js/plan/tmp/plan-detalle.html',
+        controller: 'PlanDetalleController as planDetalleCtrl',
         params: { programa: null },
       })
       ;

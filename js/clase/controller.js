@@ -36,6 +36,13 @@
         claseServicio.getHorarios({idClase:claseDetalleCtrl.clase.IdClase}).$promise.then(function(data){
           claseDetalleCtrl.horarios = data;
         });
+      } else if($stateParams && $stateParams.id) {
+        claseServicio.get({idClase:$stateParams.id}).$promise.then(function(data){
+          claseDetalleCtrl.clase = data[0];
+          claseServicio.getHorarios({idClase:claseDetalleCtrl.clase.IdClase}).$promise.then(function(data){
+            claseDetalleCtrl.horarios = data;
+          });
+        });
       }
 
       claseDetalleCtrl.agregarHorario = function () {
@@ -52,20 +59,21 @@
           if (claseDetalleCtrl.clase.IdClase) {
             // claseServicio.put({IdClase:claseDetalleCtrl.miembro.IdClase}, claseDetalleCtrl.miembro); // Ambas funcionan
             claseDetalleCtrl.clase.$put().then(function(data){
-              saveHorarios();
+              saveHorarios(data.IdClase);
             });
           } else {
             claseServicio.save(claseDetalleCtrl.clase)
             .$promise.then(function(data){
               console.log('creado: ', data);
-              saveHorarios();
+              saveHorarios(data.IdClase);
             });
           }
         }
       };
 
-      function saveHorarios () {
+      function saveHorarios (IdClase) {
         claseDetalleCtrl.horarios.forEach(function(horario){
+          horario.IdClase = IdClase;
           if (horario.IdHorarioClase) {
             horarioServicio.put({IdHorarioClase:horario.IdHorarioClase}, horario);
             console.log('put :' + horario.IdHorarioClase);

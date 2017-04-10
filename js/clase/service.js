@@ -10,6 +10,10 @@
           idClase: '@idClase',
         },
         {
+        get: {
+          method: 'GET',
+          isArray: true,
+        },  
         put: {
           method: 'PUT',
         },

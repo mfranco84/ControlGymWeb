@@ -30,6 +30,10 @@
       
       if ($stateParams && $stateParams.miembro) {
         miembroDetalleCtrl.miembro = $stateParams.miembro;
+      } else if($stateParams && $stateParams.id) {
+        miembroServicio.get({IdMiembro:$stateParams.id}).$promise.then(function(data){
+          miembroDetalleCtrl.miembro = data;
+        });
       }
 
       miembroDetalleCtrl.abrirProgramasMiembro = function () {

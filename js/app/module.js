@@ -124,7 +124,7 @@
         url: '/{id:[0-9]*}',
         templateUrl: 'js/plan/tmp/plan-detalle.html',
         controller: 'PlanDetalleController as planDetalleCtrl',
-        params: { programa: null },
+        params: { plan: null },
       })
       ;
   }

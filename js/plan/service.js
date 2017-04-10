@@ -6,32 +6,19 @@
     PlanServicio.$inject = ['$resource', 'sesionServicio'];
 
     function PlanServicio ($resource, sesionServicio){
-      var service = $resource(sesionServicio.obtenerUrlBase() + '/ProgramaEjercicio/:IdPrograma', {
-          IdPrograma: '@IdPrograma',
+      var service = $resource(sesionServicio.obtenerUrlBase() + '/PlanNutricional/:IdPlanNutricional', {
+          IdPlanNutricional: '@IdPlanNutricional',
         },
         {
         put: {
           method: 'PUT',
-          //params: {idPrograma: '@idPrograma'} //additional parameters
+          //params: {IdPlanNutricional: '@IdPlanNutricional'} //additional parameters
         },
-        getRutinas: {
+        getDetalles: {
           method: 'GET',
-          url: sesionServicio.obtenerUrlBase() + '/programa/:IdPrograma/rutinas',
+          url: sesionServicio.obtenerUrlBase() + '/PlanNutricional/:IdPlanNutricional/PlanNutricionalDetalle',
           isArray: true,
-          params: {IdPrograma: '@IdPrograma'},
-          /*transformResponse: function (data) {
-            data = angular.fromJson(data);
-            // Transformando datos de cada horario
-            data.forEach(function(horario){
-              if (horario.HoraInicio) {
-                horario.HoraInicio = horario.HoraInicio.substring(0, 5);
-              }
-              if (horario.HoraFin) {
-                horario.HoraFin = horario.HoraFin.substring(0, 5);
-              }
-            });
-            return data;
-          },*/
+          params: {IdPlanNutricional: '@IdPlanNutricional'},
         }
       });
 
@@ -39,11 +26,11 @@
     }
 
   angular.module('plan.services')
-    .service('rutinaServicio', RutinaServicio);
-    RutinaServicio.$inject = ['$resource', 'sesionServicio'];
-    function RutinaServicio ($resource, sesionServicio){
-      var service = $resource(sesionServicio.obtenerUrlBase() + '/Rutina/:IdRutina', {
-          IdRutina: '@IdRutina',
+    .service('planNutricionalDetalleServicio', PlanNutricionalDetalleServicio);
+    PlanNutricionalDetalleServicio.$inject = ['$resource', 'sesionServicio'];
+    function PlanNutricionalDetalleServicio ($resource, sesionServicio){
+      var service = $resource(sesionServicio.obtenerUrlBase() + '/PlanNutricionalDetalle/:IdPlanNutricionalDetalle', {
+          IdPlanNutricionalDetalle: '@IdPlanNutricionalDetalle',
         },
         {
         put: {

@@ -1,0 +1,58 @@
+<md-content class="" flex style="overflow-x: hidden;">
+
+  <form name="planDetalleCtrl.form">
+    <p>Ingrese la información necesaria del plan.</p>
+    <div layout-gt-sm="row">
+      <md-input-container flex>
+        <label>Nombre</label>
+        <input type="text" name="nombre" ng-model="planDetalleCtrl.plan.Nombre" minlength="2" maxlength="50" required/>
+        <div ng-messages="planDetalleCtrl.form.nombre.$error" ng-if="planDetalleCtrl.form.nombre.$touched">
+          <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
+          <div ng-message="minlength">Nombre debe ser mayor a 2 dígitos.</div>
+          <div ng-message="maxlength">Nombre debe ser menor a 50 dígitos.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Fecha de Inicio</label>
+        <md-datepicker name="FechaInicio" ng-model="planDetalleCtrl.plan.FechaInicio" required></md-datepicker>
+        <div ng-messages="planDetalleCtrl.form.FechaInicio.$error" ng-if="planDetalleCtrl.form.FechaInicio.$touched">
+          <div ng-message="required"><b>Debe</b> agregar una fecha.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Fecha Final</label>
+        <md-datepicker name="FechaFin" ng-model="planDetalleCtrl.plan.FechaFin" required></md-datepicker>
+        <div ng-messages="planDetalleCtrl.form.FechaFin.$error" ng-if="planDetalleCtrl.form.FechaFin.$touched">
+          <div ng-message="required"><b>Debe</b> agregar una fecha.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <p>
+      Agregue los tiempos de comida para este plan.
+      <md-button class="md-fab md-mini md-primary" ng-click="planDetalleCtrl.agregarDetalle()">
+        <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
+      </md-button>
+    </p>
+    <div layout-gt-sm="row" ng-repeat="detalle in planDetalleCtrl.detalles">
+      <md-input-container flex>
+        <label>Detalle del tiempo de comida</label>
+        <textarea name="detalle{{$index}}" ng-model="detalle.Detalle" required maxlength="250"></textarea>
+        <div ng-messages="planDetalleCtrl.form['detalle'+$index].$error" ng-if="planDetalleCtrl.form['detalle'+$index].$touched">
+          <div ng-message="required"><b>Debe</b> agregar el detalle del tiempo de comida.</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <md-button class="md-fab md-mini md-alert" ng-click="planDetalleCtrl.eliminarDetalle(detalle)">
+          <md-icon md-font-icon="fa-times" class="fa"></md-icon>
+        </md-button>
+      </md-input-container>
+      <md-divider ng-if="!$last"></md-divider>
+    </div>
+    <div layout-gt-sm="row">
+      <md-button class="md-primary md-raised" ng-disabled="planDetalleCtrl.form.$invalid" ng-click="planDetalleCtrl.guardarPlan()">
+        Guardar
+      </md-button>
+    </div>
+  </form>
+
+</md-content>

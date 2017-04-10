@@ -15,8 +15,8 @@
 
       planesCtrl.abrirPlanDetalles = function (IdPlan) {
         if (IdPlan) {
-          var planSelected = planesCtrl.plans.find(function(item){
-            return item.IdPlanEjercicio === IdPlan;
+          var planSelected = planesCtrl.planes.find(function(item){
+            return item.IdPlanNutricional === IdPlan;
           });
           $state.go('app.planes.detalle', {id: $stateParams.id, plan: planSelected});
         } else {
@@ -25,10 +25,10 @@
       };
     }
 
-    PlanDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'planServicio', 'rutinaServicio'];
-    function PlanDetalleController ($state, $stateParams, $sessionStorage, planServicio, rutinaServicio){
+    PlanDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'planServicio', 'planNutricionalDetalleServicio'];
+    function PlanDetalleController ($state, $stateParams, $sessionStorage, planServicio, planNutricionalDetalleServicio){
       var planDetalleCtrl = this;
-      planDetalleCtrl.rutinas = [];
+      planDetalleCtrl.detalles = [];
       planDetalleCtrl.plan = {
         IdMiembro: $stateParams.id,
       };
@@ -39,14 +39,14 @@
         planDetalleCtrl.plan.FechaInicio = new Date(fechaI);
         var fechaF = planDetalleCtrl.plan.FechaFin.replace(new RegExp('-', 'g'), '/').substring(0, 10);
         planDetalleCtrl.plan.FechaFin = new Date(fechaF);
-        planServicio.getRutinas({IdPlan:planDetalleCtrl.plan.IdPlanEjercicio}).$promise.then(function(data){
-          planDetalleCtrl.rutinas = data;
+        planServicio.getDetalles({IdPlanNutricional:planDetalleCtrl.plan.IdPlanNutricional}).$promise.then(function(data){
+          planDetalleCtrl.detalles = data;
         });
       }
 
-      planDetalleCtrl.agregarRutina = function () {
-        planDetalleCtrl.rutinas.push({
-          IdPlanEjercicio: planDetalleCtrl.plan.IdPlanEjercicio,
+      planDetalleCtrl.agregarDetalle = function () {
+        planDetalleCtrl.detalles.push({
+          IdPlanNutricional: planDetalleCtrl.plan.IdPlanNutricional,
           NombreRutina: "",
           DetalleRutina: ""
         });
@@ -54,31 +54,31 @@
 
       planDetalleCtrl.guardarPlan = function () {
         if (planDetalleCtrl.form.$valid) {
-          if (planDetalleCtrl.plan.IdPlanEjercicio) {
-            planServicio.put({IdPlan:planDetalleCtrl.plan.IdPlanEjercicio}, planDetalleCtrl.plan)
+          if (planDetalleCtrl.plan.IdPlanNutricional) {
+            planServicio.put({IdPlanNutricional:planDetalleCtrl.plan.IdPlanNutricional}, planDetalleCtrl.plan)
             .$promise.then(function(data){
               console.log('actualizado: ', data);
-              saveRutinas(data.IdPlanEjercicio);
+              saveDetalles(data.IdPlanNutricional);
             });
           } else {
             planServicio.save(planDetalleCtrl.plan)
             .$promise.then(function(data){
               console.log('creado: ', data);
-              saveRutinas(data.IdPlanEjercicio);
+              saveDetalles(data.IdPlanNutricional);
             });
           }
         }
       };
 
-      function saveRutinas (IdPlanEjercicio) {
-        planDetalleCtrl.rutinas.forEach(function(rutina){
-          rutina.IdPlanEjercicio = IdPlanEjercicio;
-          if (rutina.IdRutina) {
-            rutinaServicio.put({IdRutina:rutina.IdRutina}, rutina);
-            console.log('put :' + rutina.IdRutina);
+      function saveDetalles (IdPlanNutricional) {
+        planDetalleCtrl.detalles.forEach(function(detalle){
+          detalle.IdPlanNutricional = IdPlanNutricional;
+          if (detalle.IdPlanNutricionalDetalle) {
+            planNutricionalDetalleServicio.put({IdPlanNutricionalDetalle:detalle.IdPlanNutricionalDetalle}, detalle);
+            console.log('put :' + detalle.IdPlanNutricionalDetalle);
           } else {
             console.log('post:');
-            rutinaServicio.save(rutina);
+            planNutricionalDetalleServicio.save(detalle);
           }
         });
         // $state.go('app.miembros.lista');

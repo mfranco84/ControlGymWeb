@@ -45,19 +45,19 @@
           <md-option value="Dia 6">D&iacute;a 6</md-option>
           <md-option value="Dia 7">D&iacute;a 7</md-option>
         </md-select>
-        <div ng-messages="claseDetalleCtrl.form['dia'+$index].$error" ng-if="claseDetalleCtrl.form['dia'+$index].$touched">
+        <div ng-messages="programaDetalleCtrl.form['dia'+$index].$error" ng-if="programaDetalleCtrl.form['dia'+$index].$touched">
           <div ng-message="required"><b>Debe</b> agregar un d&iacute;a.</div>
         </div>
       </md-input-container>
       <md-input-container flex>
         <label>Detalle de la rutina</label>
         <textarea name="detalle{{$index}}" ng-model="rutina.DetalleRutina" required maxlength="250"></textarea>
-        <div ng-messages="claseDetalleCtrl.form['detalle'+$index].$error" ng-if="claseDetalleCtrl.form['detalle'+$index].$touched">
+        <div ng-messages="programaDetalleCtrl.form['detalle'+$index].$error" ng-if="programaDetalleCtrl.form['detalle'+$index].$touched">
           <div ng-message="required"><b>Debe</b> agregar el detalle de la rutina.</div>
         </div>
       </md-input-container>
       <md-input-container flex>
-        <md-button class="md-fab md-mini md-alert" ng-click="claseDetalleCtrl.eliminarRutina(rutina)">
+        <md-button class="md-fab md-mini md-alert" ng-click="programaDetalleCtrl.eliminarRutina(rutina)">
           <md-icon md-font-icon="fa-times" class="fa"></md-icon>
         </md-button>
       </md-input-container>

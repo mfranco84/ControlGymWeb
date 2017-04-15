@@ -28,6 +28,7 @@
     ProgramaDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'programaServicio', 'rutinaServicio'];
     function ProgramaDetalleController ($state, $stateParams, $sessionStorage, programaServicio, rutinaServicio){
       var programaDetalleCtrl = this;
+      var idRutinasRemover = [];
       programaDetalleCtrl.rutinas = [];
       programaDetalleCtrl.programa = {
         IdMiembro: $stateParams.id,
@@ -49,6 +50,15 @@
           IdProgramaEjercicio: programaDetalleCtrl.programa.IdProgramaEjercicio,
           NombreRutina: "",
           DetalleRutina: ""
+        });
+      };
+
+      programaDetalleCtrl.eliminarRutina = function (rutina) {
+        if (rutina.IdRutina) {
+          idRutinasRemover.push(rutina.IdRutina);
+        }
+        programaDetalleCtrl.rutinas = programaDetalleCtrl.rutinas.filter(function(item){
+          return rutina.NombreRutina !== item.NombreRutina;
         });
       };
 
@@ -81,8 +91,16 @@
             rutinaServicio.save(rutina);
           }
         });
+        removerRutinas();
         $state.go('app.miembros.detalle', {id: programaDetalleCtrl.programa.IdMiembro});
       }
+
+      function removerRutinas () {
+        idRutinasRemover.forEach(function(idRutina){
+          rutinaServicio.delete({IdRutina:idRutina});
+        });
+      }
+
 
     }
 

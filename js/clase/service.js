@@ -51,6 +51,9 @@
         {
         put: {
           method: 'PUT',
+        },
+        delete: {
+          method: 'DELETE',
         }
       });
 

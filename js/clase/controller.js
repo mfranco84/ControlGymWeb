@@ -24,6 +24,7 @@
     ClaseDetalleController.$inject = ['$state', '$sessionStorage', '$stateParams', 'claseServicio', 'horarioServicio'];
     function ClaseDetalleController ($state, $sessionStorage, $stateParams, claseServicio, horarioServicio){
       var claseDetalleCtrl = this;
+      var idHorariosRemover = [];
       claseDetalleCtrl.clase = {
         IdGimnasio: $sessionStorage.usuario.IdGimnasio,
       };
@@ -51,6 +52,15 @@
           Dia: "",
           HoraInicio: "00:00",
           HoraFin: "00:00"
+        });
+      };
+
+      claseDetalleCtrl.eliminarHorario = function (horario) {
+        if (horario.IdHorarioClase) {
+          idHorariosRemover.push(horario.IdHorarioClase);
+        }
+        claseDetalleCtrl.horarios = claseDetalleCtrl.horarios.filter(function(item){
+          return horario.HoraInicio !== item.HoraInicio && horario.HoraFin !== item.HoraFin && horario.Dia !== item.Dia;
         });
       };
 
@@ -82,7 +92,14 @@
             horarioServicio.save(horario);
           }
         });
+        removerHorarios();
         $state.go('app.clases.lista');
+      }
+
+      function removerHorarios () {
+        idHorariosRemover.forEach(function(idHorario){
+          horarioServicio.delete({IdHorarioClase:idHorario});
+        });
       }
 
     }

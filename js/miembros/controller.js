@@ -50,6 +50,7 @@
             // miembroServicio.put({IdMiembro:miembroDetalleCtrl.miembro.IdMiembro}, miembroDetalleCtrl.miembro); // Ambas funcionan
             miembroDetalleCtrl.miembro.$put().then(function(data){
               console.log('actualizado: ', data);
+              $state.go('app.miembros.lista');
             });
           } else {
             miembroServicio.save({IdMiembro:miembroDetalleCtrl.miembro.IdMiembro}, miembroDetalleCtrl.miembro)

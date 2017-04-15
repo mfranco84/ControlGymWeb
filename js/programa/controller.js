@@ -81,7 +81,7 @@
             rutinaServicio.save(rutina);
           }
         });
-        // $state.go('app.miembros.lista');
+        $state.go('app.miembros.detalle', {id: programaDetalleCtrl.programa.IdMiembro});
       }
 
     }

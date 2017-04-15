@@ -32,6 +32,7 @@
       planDetalleCtrl.plan = {
         IdMiembro: $stateParams.id,
       };
+      var idDetallesRemover = [];
       
       if ($stateParams && $stateParams.plan) {
         planDetalleCtrl.plan = $stateParams.plan;
@@ -47,8 +48,15 @@
       planDetalleCtrl.agregarDetalle = function () {
         planDetalleCtrl.detalles.push({
           IdPlanNutricional: planDetalleCtrl.plan.IdPlanNutricional,
-          NombreRutina: "",
-          DetalleRutina: ""
+        });
+      };
+
+      planDetalleCtrl.eliminarDetalle = function (detalle) {
+        if (detalle.IdPlanNutricionalDetalle) {
+          idDetallesRemover.push(detalle.IdPlanNutricionalDetalle);
+        }
+        planDetalleCtrl.detalles = planDetalleCtrl.detalles.filter(function(item){
+          return detalle.Detalle !== item.Detalle;
         });
       };
 
@@ -81,7 +89,14 @@
             planNutricionalDetalleServicio.save(detalle);
           }
         });
-        // $state.go('app.miembros.lista');
+        removerDetalles();
+        $state.go('app.miembros.detalle', {id: planDetalleCtrl.plan.IdMiembro});
+      }
+
+      function removerDetalles () {
+        idDetallesRemover.forEach(function(idDetalle){
+          planNutricionalDetalleServicio.delete({IdPlanNutricionalDetalle:idDetalle});
+        });
       }
 
     }

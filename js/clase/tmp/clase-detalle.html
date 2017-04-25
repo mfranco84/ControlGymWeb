@@ -60,7 +60,7 @@
       <md-divider ng-if="!$last"></md-divider>
     </div>
     <div layout-gt-sm="row">
-      <md-button class="md-primary md-raised" ng-disabled="claseDetalleCtrl.form.$invalid" ng-click="claseDetalleCtrl.guardarClase()">
+      <md-button class="md-primary md-raised" ng-disabled="claseDetalleCtrl.form.$invalid || claseDetalleCtrl.enProceso" ng-click="claseDetalleCtrl.guardarClase()">
         Guardar
       </md-button>
     </div>

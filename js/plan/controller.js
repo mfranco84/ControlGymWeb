@@ -25,8 +25,8 @@
       };
     }
 
-    PlanDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'planServicio', 'planNutricionalDetalleServicio'];
-    function PlanDetalleController ($state, $stateParams, $sessionStorage, planServicio, planNutricionalDetalleServicio){
+    PlanDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', '$mdToast', 'planServicio', 'planNutricionalDetalleServicio'];
+    function PlanDetalleController ($state, $stateParams, $sessionStorage, $mdToast, planServicio, planNutricionalDetalleServicio){
       var planDetalleCtrl = this;
       planDetalleCtrl.detalles = [];
       planDetalleCtrl.plan = {
@@ -62,6 +62,7 @@
 
       planDetalleCtrl.guardarPlan = function () {
         if (planDetalleCtrl.form.$valid) {
+          planDetalleCtrl.enProceso = true;
           if (planDetalleCtrl.plan.IdPlanNutricional) {
             planServicio.put({IdPlanNutricional:planDetalleCtrl.plan.IdPlanNutricional}, planDetalleCtrl.plan)
             .$promise.then(function(data){
@@ -89,7 +90,8 @@
             planNutricionalDetalleServicio.save(detalle);
           }
         });
-        removerDetalles();
+        removerDetalles();        
+        $mdToast.showSimple('El plan nutricional ' + planDetalleCtrl.plan.Nombre + ' ha sido guardado exitosamente.');
         $state.go('app.miembros.detalle', {id: planDetalleCtrl.plan.IdMiembro});
       }
 

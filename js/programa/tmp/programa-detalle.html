@@ -64,7 +64,7 @@
       <md-divider ng-if="!$last"></md-divider>
     </div>
     <div layout-gt-sm="row">
-      <md-button class="md-primary md-raised" ng-disabled="programaDetalleCtrl.form.$invalid" ng-click="programaDetalleCtrl.guardarPrograma()">
+      <md-button class="md-primary md-raised" ng-disabled="programaDetalleCtrl.form.$invalid || programaDetalleCtrl.enProceso" ng-click="programaDetalleCtrl.guardarPrograma()">
         Guardar
       </md-button>
     </div>

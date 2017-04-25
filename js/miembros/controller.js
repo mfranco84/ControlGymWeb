@@ -21,8 +21,8 @@
       };
     }
 
-    MiembroDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'miembroServicio'];
-    function MiembroDetalleController ($state, $stateParams, $sessionStorage, miembroServicio){
+    MiembroDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', '$mdToast', 'miembroServicio'];
+    function MiembroDetalleController ($state, $stateParams, $sessionStorage, $mdToast, miembroServicio){
       var miembroDetalleCtrl = this;
       miembroDetalleCtrl.miembro = {
         IdGimnasio: $sessionStorage.usuario.IdGimnasio,
@@ -46,16 +46,19 @@
 
       miembroDetalleCtrl.guardarMiembro = function () {
         if (miembroDetalleCtrl.form.$valid) {
+          miembroDetalleCtrl.enProceso = true;
           if (miembroDetalleCtrl.miembro.IdMiembro) {
             // miembroServicio.put({IdMiembro:miembroDetalleCtrl.miembro.IdMiembro}, miembroDetalleCtrl.miembro); // Ambas funcionan
             miembroDetalleCtrl.miembro.$put().then(function(data){
               console.log('actualizado: ', data);
+              $mdToast.showSimple('El miembro ' + data.Nombre + ' ha sido actualizado exitosamente.');
               $state.go('app.miembros.lista');
             });
           } else {
             miembroServicio.save({IdMiembro:miembroDetalleCtrl.miembro.IdMiembro}, miembroDetalleCtrl.miembro)
             .$promise.then(function(data){
               console.log('creado: ', data);
+              $mdToast.showSimple('El miembro ' + data.Nombre + ' ha sido creado exitosamente.');
               $state.go('app.miembros.lista');
             });
           }

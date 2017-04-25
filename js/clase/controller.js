@@ -21,8 +21,8 @@
       };
     }
 
-    ClaseDetalleController.$inject = ['$state', '$sessionStorage', '$stateParams', 'claseServicio', 'horarioServicio'];
-    function ClaseDetalleController ($state, $sessionStorage, $stateParams, claseServicio, horarioServicio){
+    ClaseDetalleController.$inject = ['$state', '$sessionStorage', '$stateParams', '$mdToast', 'claseServicio', 'horarioServicio'];
+    function ClaseDetalleController ($state, $sessionStorage, $stateParams, $mdToast, claseServicio, horarioServicio){
       var claseDetalleCtrl = this;
       var idHorariosRemover = [];
       claseDetalleCtrl.clase = {
@@ -66,6 +66,7 @@
 
       claseDetalleCtrl.guardarClase = function () {
         if (claseDetalleCtrl.form.$valid) {
+          claseDetalleCtrl.enProceso = true;
           if (claseDetalleCtrl.clase.IdClase) {
             // claseServicio.put({IdClase:claseDetalleCtrl.miembro.IdClase}, claseDetalleCtrl.miembro); // Ambas funcionan
             claseDetalleCtrl.clase.$put().then(function(data){
@@ -93,6 +94,7 @@
           }
         });
         removerHorarios();
+        $mdToast.showSimple('La clase ' + claseDetalleCtrl.clase.Nombre + ' ha sido guardada exitosamente.');
         $state.go('app.clases.lista');
       }
 

@@ -55,7 +55,7 @@
       </md-input-container>
     </div>
     <div layout-gt-sm="row">
-      <md-button class="md-primary md-raised" ng-disabled="miembroDetalleCtrl.form.$invalid" ng-click="miembroDetalleCtrl.guardarMiembro()">
+      <md-button class="md-primary md-raised" ng-disabled="miembroDetalleCtrl.form.$invalid || miembroDetalleCtrl.enProceso" ng-click="miembroDetalleCtrl.guardarMiembro()">
         Guardar
       </md-button>
       <span flex></span>

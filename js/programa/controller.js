@@ -25,8 +25,8 @@
       };
     }
 
-    ProgramaDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', 'programaServicio', 'rutinaServicio'];
-    function ProgramaDetalleController ($state, $stateParams, $sessionStorage, programaServicio, rutinaServicio){
+    ProgramaDetalleController.$inject = ['$state', '$stateParams', '$sessionStorage', '$mdToast', 'programaServicio', 'rutinaServicio'];
+    function ProgramaDetalleController ($state, $stateParams, $sessionStorage, $mdToast, programaServicio, rutinaServicio){
       var programaDetalleCtrl = this;
       var idRutinasRemover = [];
       programaDetalleCtrl.rutinas = [];
@@ -64,6 +64,7 @@
 
       programaDetalleCtrl.guardarPrograma = function () {
         if (programaDetalleCtrl.form.$valid) {
+          programaDetalleCtrl.enProceso = true;
           if (programaDetalleCtrl.programa.IdProgramaEjercicio) {
             programaServicio.put({IdPrograma:programaDetalleCtrl.programa.IdProgramaEjercicio}, programaDetalleCtrl.programa)
             .$promise.then(function(data){
@@ -92,6 +93,7 @@
           }
         });
         removerRutinas();
+        $mdToast.showSimple('El programa ' + programaDetalleCtrl.programa.NombrePrograma + ' ha sido guardado exitosamente.');
         $state.go('app.miembros.detalle', {id: programaDetalleCtrl.programa.IdMiembro});
       }
 

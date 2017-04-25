@@ -11,7 +11,7 @@
 
           <md-input-container>
             <label>Nombre Administrador</label>
-            <md-icon md-font-icon="fa-at" class="fa"></md-icon>
+            <md-icon md-font-icon="fa-edit" class="fa"></md-icon>
             <input required name="nombre_administrador" ng-model="registroCtrl.nombreAdministrador">
             <div ng-messages="registroCtrl.form.nombre_administrador.$error" ng-if="registroCtrl.form.nombre_administrador.$touched">
               <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
@@ -20,7 +20,7 @@
 
           <md-input-container>
             <label>Identificaci&oacute;n</label>
-            <md-icon md-font-icon="fa-at" class="fa"></md-icon>
+            <md-icon md-font-icon="fa-edit" class="fa"></md-icon>
             <input required name="identificacion" ng-model="registroCtrl.identificacion">
             <div ng-messages="registroCtrl.form.identificacion.$error" ng-if="registroCtrl.form.identificacion.$touched">
               <div ng-message="required"><b>Debe</b> agregar una identificaci&oacute;n.</div>
@@ -29,7 +29,7 @@
 
           <md-input-container>
             <label>Tel&eacute;fono</label>
-            <md-icon md-font-icon="fa-at" class="fa"></md-icon>
+            <md-icon md-font-icon="fa-phone" class="fa"></md-icon>
             <input required name="telefono" ng-model="registroCtrl.telefono">
             <div ng-messages="registroCtrl.form.telefono.$error" ng-if="registroCtrl.form.telefono.$touched">
               <div ng-message="required"><b>Debe</b> agregar un telefono.</div>
@@ -38,7 +38,7 @@
 
           <md-input-container>
             <label>Direcci&oacute;n</label>
-            <md-icon md-font-icon="fa-at" class="fa"></md-icon>
+            <md-icon md-font-icon="fa-home" class="fa"></md-icon>
             <input required name="direccion" ng-model="registroCtrl.direccion">
             <div ng-messages="registroCtrl.form.direccion.$error" ng-if="registroCtrl.form.direccion.$touched">
               <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
@@ -58,7 +58,7 @@
           <md-input-container>
             <label>Contrase&ntilde;a</label>
             <md-icon md-font-icon="fa-key" class="fa"></md-icon>
-            <input required name="contrasena" ng-model="registroCtrl.clave">
+            <input required type="password" name="contrasena" ng-model="registroCtrl.clave">
             <div ng-messages="registroCtrl.form.contrasena.$error" ng-if="registroCtrl.form.contrasena.$touched">
               <div ng-message="required"><b>Debe</b> agregar una contrase&ntilde;a.</div>
             </div>
@@ -67,27 +67,40 @@
           <md-input-container>
             <label>Confirmar contrase&ntilde;a</label>
             <md-icon md-font-icon="fa-key" class="fa"></md-icon>
-            <input required name="confirmar_contrasena">
+            <input required type="password" name="confirmar_contrasena" ng-model="registroCtrl.claveConfirmacion" ng-change="registroCtrl.verificarContrasena()">
             <div ng-messages="registroCtrl.form.confirmar_contrasena.$error" ng-if="registroCtrl.form.confirmar_contrasena.$touched">
               <div ng-message="required"><b>Debe</b> agregar una contrase&ntilde;a.</div>
+              <div ng-message="confirmada"><b>Debe</b> verificar la contrase&ntilde;a.</div>
             </div>
           </md-input-container>
 
           <md-input-container>
             <label>Membres&iacute;a</label>
             <md-icon md-font-icon="fa-vcard-o" class="fa"></md-icon>            
-            <md-select placeholder="Seleccionar membresia" ng-model="registroCtrl.membresia" md-on-open="registroCtrl.retornarMembresias()" style="min-width: 200px;">
+            <md-select placeholder="Seleccionar membresia" name="membresia" ng-model="registroCtrl.membresia" md-on-open="registroCtrl.retornarMembresias()" style="min-width: 200px;" required>
               <md-option ng-value="membresia" ng-repeat="membresia in registroCtrl.membresias">{{membresia.Nombre}}</md-option>
             </md-select>
-            {{registroCtrl.membresia}}
-            <div ng-messages="registroCtrl.form.contrasena.$error" ng-if="registroCtrl.form.contrasena.$touched">
+            <md-list flex ng-show="registroCtrl.membresia">
+              <md-list-item class="md-3-line">
+                <div class="md-list-item-text" layout="column">
+                  <h3>Monto</h3>
+                  <p>${{registroCtrl.membresia.Monto}}</p>
+                </div>
+                <div class="md-list-item-text" layout="column">
+                  <h3>Detalle</h3>
+                  <p>{{registroCtrl.membresia.Detalle}}</p>
+                </div>
+              </md-list-item>
+            </md-list>
+            
+            <div ng-messages="registroCtrl.form.membresia.$error" ng-if="registroCtrl.form.membresia.$touched">
               <div ng-message="required"><b>Debe</b> seleccionar una membres&iacute;a</div>
             </div>
           </md-input-container>
 
           <md-input-container>
             <label>Nombre de Gimnasio</label>
-            <md-icon md-font-icon="fa-at" class="fa"></md-icon>
+            <md-icon md-font-icon="fa-edit" class="fa"></md-icon>
             <input required name="nombre_gimnasio" ng-model="registroCtrl.nombreGimnasio">
             <div ng-messages="registroCtrl.form.nombre_gimnasio.$error" ng-if="registroCtrl.form.nombre_gimnasio.$touched">
               <div ng-message="required"><b>Debe</b> agregar un nombre completo.</div>
@@ -95,7 +108,7 @@
           </md-input-container>
 
           <div layout="row" layout-sm="column" layout-align="center center">
-            <md-button class="md-raised md-primary" ng-disabled="registroCtrl.form.$invalid" ng-click="registroCtrl.crear()">Crear</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="registroCtrl.form.$invalid || registroCtrl.enProceso" ng-click="registroCtrl.crear()">Crear</md-button>
           </div>
         </md-card>
       </md-content>
